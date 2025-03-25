@@ -10,6 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { TimePickerDemo } from "./time-picker";
+import { useCreateAlert } from "@/services/create-alert/use-create-alert";
 
 interface AlertFormData {
   email: string;
@@ -19,6 +20,8 @@ interface AlertFormData {
 }
 
 export function AlertForm() {
+  const createAlertMutation = useCreateAlert();
+
   const {
     register,
     handleSubmit,
@@ -33,15 +36,14 @@ export function AlertForm() {
     },
   });
 
-  const onSubmit = (data: AlertFormData) => {
-    console.log(data);
-    // Handle form submission
+  const onSubmit = async (data: AlertFormData) => {
+    createAlertMutation.mutate(data);
   };
 
   return (
     <Card className="w-full max-w-md my-2 mx-auto">
       <CardHeader>
-        <CardTitle>Create Bus Alert</CardTitle>
+        <CardTitle>Create KSRTC Bus Alert</CardTitle>
         <CardDescription>
           Set up an alert to notify you when bus tickets become available
         </CardDescription>
@@ -85,6 +87,32 @@ export function AlertForm() {
               id="searchUrl"
               {...register("searchUrl", {
                 required: "Search URL is required",
+                pattern: {
+                  value:
+                    /^https?:\/\/onlineksrtcswift\.com\/search\?.*fromCity=.*&toCity=.*&departDate=.*&mode=oneway.*$/i,
+                  message: "Please enter a valid KSRTC search URL",
+                },
+                validate: {
+                  hasRequiredParams: (value) => {
+                    try {
+                      const url = new URL(value);
+                      const requiredParams = [
+                        "fromCity",
+                        "toCity",
+                        "departDate",
+                        "mode",
+                      ];
+                      return (
+                        requiredParams.every((param) =>
+                          url.searchParams.has(param)
+                        ) ||
+                        "URL must contain fromCity, toCity, departDate, and mode parameters"
+                      );
+                    } catch {
+                      return "Invalid URL format";
+                    }
+                  },
+                },
               })}
               placeholder="Enter the KSRTC search URL"
             />
