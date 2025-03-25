@@ -39,7 +39,7 @@ export function AlertForm() {
   };
 
   return (
-    <Card className="w-full max-w-md my-3 mx-auto">
+    <Card className="w-full max-w-md my-2 mx-auto">
       <CardHeader>
         <CardTitle>Create Bus Alert</CardTitle>
         <CardDescription>
@@ -47,8 +47,8 @@ export function AlertForm() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div className="space-y-3">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
+          <div className="space-y-2">
             <div>
               <Label htmlFor="email">Email</Label>
             </div>
@@ -70,16 +70,12 @@ export function AlertForm() {
             )}
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-2">
             <div>
               <Label htmlFor="searchUrl">Search URL</Label>
               <p className="text-xs text-muted-foreground text-start mt-1">
                 Click{" "}
-                <a
-                  href="https://www.google.com"
-                  target="_blank"
-                  className="underline"
-                >
+                <a href="/how-to-use" target="_blank" className="underline">
                   here
                 </a>{" "}
                 to see how to get search URL
@@ -99,7 +95,7 @@ export function AlertForm() {
             )}
           </div>
 
-          <div className="grid grid-cols-1 gap-6">
+          <div className="grid grid-cols-1 gap-3">
             <div className="space-y-3">
               <div>
                 <Label htmlFor="timeRangeStart">Start Time</Label>
@@ -129,7 +125,7 @@ export function AlertForm() {
             </div>
           </div>
 
-          <Button type="submit" className="w-full">
+          <Button type="submit" className="w-full cursor-pointer">
             Create Alert
           </Button>
         </form>
