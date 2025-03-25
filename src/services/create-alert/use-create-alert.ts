@@ -27,9 +27,10 @@ export const useCreateAlert = () => {
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['alerts'] });
-            toast.success("Alert created successfully!");
+            toast.success("Alert created successfully! you will receive an email when the booking is available");
         },
-        onError: () => {
+        onError: (error) => {
+            console.log(error);
             toast.error("Failed to create alert. Please try again.");
         }
     });

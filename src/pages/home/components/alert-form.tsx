@@ -20,8 +20,7 @@ interface AlertFormData {
 }
 
 export function AlertForm() {
-  const createAlertMutation = useCreateAlert();
-
+  const { mutate: createAlert, isPending } = useCreateAlert();
   const {
     register,
     handleSubmit,
@@ -37,7 +36,7 @@ export function AlertForm() {
   });
 
   const onSubmit = async (data: AlertFormData) => {
-    createAlertMutation.mutate(data);
+    createAlert(data);
   };
 
   return (
@@ -153,8 +152,8 @@ export function AlertForm() {
             </div>
           </div>
 
-          <Button type="submit" className="w-full cursor-pointer">
-            Create Alert
+          <Button type="submit" className="w-full cursor-pointer" disabled={isPending}>
+            {isPending ? "Creating Alert..." : "Create Alert"}
           </Button>
         </form>
       </CardContent>
