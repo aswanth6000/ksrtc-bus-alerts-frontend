@@ -37,6 +37,7 @@ export function AlertForm() {
 
   const onSubmit = async (data: AlertFormData) => {
     createAlert(data);
+    
   };
 
   return (
@@ -48,7 +49,7 @@ export function AlertForm() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
+        <form autoComplete="off" onSubmit={handleSubmit(onSubmit)} className="space-y-2">
           <div className="space-y-2">
             <div>
               <Label htmlFor="email">Email</Label>
